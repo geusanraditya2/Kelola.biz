@@ -208,7 +208,7 @@ class UserController extends Controller
             alert()->success('Deleted', 'User data deleted successfully!');
 
             // Redirect ke halaman dashboard (atau halaman lain yang sesuai)
-            return redirect()->route('dashboard')->with('success', 'User deleted successfully.');
+            return redirect()->route('tables')->with('success', 'User deleted successfully.');
         } catch (\Exception $e) {
             // Menampilkan notifikasi error jika ada masalah
             alert()->error('Error', 'Failed to delete user. Please try again.');

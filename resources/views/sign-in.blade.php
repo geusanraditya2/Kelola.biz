@@ -46,11 +46,11 @@
                                         @csrf
                                         <div class="card-body">
                                             <!-- Pesan error global -->
-                                            @if ($errors->has('email'))
+                                            {{-- @if ($errors->has('email'))
                                                 <div class="alert alert-danger">
                                                     {{ $errors->first('email') }}
                                                 </div>
-                                            @endif
+                                            @endif --}}
 
                                             <div class="mb-3">
                                                 <input type="email" class="form-control form-control-lg"

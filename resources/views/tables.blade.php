@@ -9,6 +9,7 @@
     <title>
         PKL
     </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -58,6 +59,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         .dropdown-menu {
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -84,6 +87,52 @@
         th,
         td {
             white-space: nowrap;
+
+        }
+        .search-container {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .search-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 110px;
+            height: 38px;
+            white-space: nowrap;
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            border-top-color: red;
+            animation: spin 1s linear infinite, colorShift 2s infinite;
+        }
+
+        .loading .spinner {
+            display: inline-block;
+        }
+
+        .loading .search-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes colorShift {
+            0%   { border-top-color: red; }
+            25%  { border-top-color: orange; }
+            50%  { border-top-color: yellow; }
+            75%  { border-top-color: green; }
+            100% { border-top-color: blue; }
         }
     </style>
 
@@ -257,10 +306,17 @@
                                                 </select>
                                                 <input type="submit" class="btn btn-secondary me-5" value="Filter">
                                             </form>
-                                            <form action="/user/search" method="GET" class="d-flex">
-                                                <input type="text" name="search" class="form-control me-2"
-                                                    placeholder="Search user...">
-                                                <input type="submit" class="btn btn-primary" value="Search"></input>
+                                            <form action="/user/search" method="GET" class="d-flex" onsubmit="showLoading(this)">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                    <input type="text" name="search" class="form-control" placeholder="Search user..." required>
+                                                    <button type="submit" class="btn btn-primary search-btn" id="searchBtn">
+                                                        <span class="search-text">Search</span>
+                                                        <div class="spinner" role="status"></div>
+                                                    </button>
+                                                </div>
                                             </form>
                                         </div>
                                         <table id="userTable" class="table table-striped table-bordered">
@@ -975,6 +1031,24 @@
         });
 
 
+        // Coba loading
+
+    function showLoading(form) {
+        let btn = form.querySelector("#searchBtn");
+        let spinner = form.querySelector("#loadingSpinner");
+        let btnText = form.querySelector("#btnText");
+
+        // Tampilkan spinner dan ubah teks tombol
+        spinner.classList.remove("d-none");
+        btnText.textContent = "Searching...";
+        btn.disabled = true;
+    }
+
+    function showLoading(form) {
+        let btn = form.querySelector("#searchBtn");
+        btn.classList.add("loading");
+        btn.disabled = true;
+    }
 
 
 
