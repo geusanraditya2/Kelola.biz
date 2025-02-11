@@ -406,14 +406,14 @@
             </div>
             <div class="row" style="margin-top: 30px">
                 <div class="col-8 mx-auto text-center mt-1">
-                    <p class="mb-0 text-secondary">
-                        Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> Soft by Geusan Raditya.
-                    </p>
+                    <marquee behavior="scroll" direction="left">
+                        <p class="mb-0 text-secondary">
+                            Copyright © <script>document.write(new Date().getFullYear())</script> Soft by Geusan Raditya.
+                        </p>
+                    </marquee>
                 </div>
             </div>
+
         </div>
     </footer>
     <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->

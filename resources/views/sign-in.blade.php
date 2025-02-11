@@ -34,6 +34,7 @@
         </div>
     </div>
     <main class="main-content  mt-0">
+
         <section>
             <div class="page-header min-vh-100">
                 <div class="container">
@@ -41,7 +42,11 @@
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <h4 class="font-weight-bolder">Sign In</h4>
+                                    {{-- <h4 class="font-weight-bolder">Sign In</h4> --}}
+                                    <h4 class="font-weight-bolder">
+                                        <marquee behavior="scroll" direction="left">Sign In</marquee>
+                                    </h4>
+
                                     <form action="/sign-in" method="POST">
                                         @csrf
                                         <div class="card-body">
@@ -90,10 +95,11 @@
                                             </div>
 
                                             <div class="text-center">
-                                                <input type="submit"
-                                                    class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0"
-                                                    value="Sign In">
+                                                <button type="submit" id="signInButton" class="btn btn-lg btn-primary w-100 mt-4 mb-0">
+                                                    Sign In
+                                                </button>
                                             </div>
+
                                         </div>
                                     </form>
 
@@ -157,7 +163,21 @@
             toggleIcon.classList.toggle('fa-eye');
             toggleIcon.classList.toggle('fa-eye-slash');
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const signInButton = document.getElementById("signInButton");
+
+    form.addEventListener("submit", function () {
+        // Ubah tombol menjadi loading spinner
+        signInButton.disabled = true;
+        signInButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`;
+    });
+});
+
+
     </script>
+
 </body>
 
 </html>

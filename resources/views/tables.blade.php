@@ -44,6 +44,8 @@
     <!-- FontAwesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+
+
     <!-- Bootstrap CSS (Pastikan hanya satu versi) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -79,9 +81,9 @@
         table {
             table-layout: auto;
             width: 100%;
-            /* Tabel mengikuti lebar kontainer */
+
             white-space: nowrap;
-            /* Nonaktifkan pemotongan teks */
+
         }
 
         th,
@@ -89,6 +91,7 @@
             white-space: nowrap;
 
         }
+
         .search-container {
             max-width: 400px;
             margin: auto;
@@ -124,26 +127,88 @@
         }
 
         @keyframes spin {
-            100% { transform: rotate(360deg); }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes colorShift {
-            0%   { border-top-color: red; }
-            25%  { border-top-color: orange; }
-            50%  { border-top-color: yellow; }
-            75%  { border-top-color: green; }
-            100% { border-top-color: blue; }
+            0% {
+                border-top-color: red;
+            }
+
+            25% {
+                border-top-color: orange;
+            }
+
+            50% {
+                border-top-color: yellow;
+            }
+
+            75% {
+                border-top-color: green;
+            }
+
+            100% {
+                border-top-color: blue;
+            }
         }
+
+        #searchButton {
+            min-width: 100px;
+            height: 38px;
+        }
+
+        #searchSpinner {
+            width: 16px;
+            height: 16px;
+        }
+
+
+        /* #loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Agar spinner tidak menghalangi klik setelah hilang */
+        #loading-spinner.hidden {
+            display: none !important;
+            pointer-events: none;
+        } */
+
+
     </style>
 
-</head>
+ </head>
+ <body>
+    <!-- Loading Spinner (di luar konten halaman) -->
+    {{-- <div id="loading-spinner">
+        <div class="spinner"></div>
+    </div> --}}
 
-
-</head>
-
-<body class="g-sidenav-show   bg-gray-100">
-    @include('sweetalert::alert')
-
+     @include('sweetalert::alert')
     <div class="min-height-300 bg-dark position-absolute w-100"></div>
     <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
@@ -161,24 +226,7 @@
         <hr class="horizontal dark mt-0">
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
-                {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">{{  $person->username }}</span>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-              <li>
-                <a class="dropdown-item" href="/sign-in">
-                  <i class="fas fa-sign-out-alt text-dark text-sm opacity-10 me-2"></i>
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </li>
-        </li> --}}
                 <li class="nav-item">
                     <a class="nav-link " href="/admin">
                         <div
@@ -219,12 +267,7 @@
                     <h6 class="font-weight-bolder text-white mb-0">Tables</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
-            </div>
-          </div> --}}
+
 
                     <li class="nav-item px-3 d-flex align-items-center dropdown" style="margin-left: auto;">
                         <a href="#" class="nav-link text-white p-0 dropdown-toggle d-flex align-items-center"
@@ -250,29 +293,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        {{-- <div class="card-header pb-0">
-              <h6>User table</h6>
-            </div> --}}
+
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-5">
-                                {{-- <div class="d-flex align-items-center mb-3">
-                    <label for="entriesPerPage" class="form-label mb-0 me-2" style="font-size: 0.9rem;">Entries per Page:</label>
-                    <select id="entriesPerPage" class="form-select" style="width: auto; font-size: 0.875rem;">
-                        <option value="2">2</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div> --}}
 
-                                <!-- Search Input -->
-                                {{-- <div style="text-align: right; padding: 0px;">
-                    <div class="input-group" style="max-width: 350px; float: right;">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" id="searchInput" class="form-control" placeholder="Search Users..." aria-label="Search Users" style="font-size: 0.875rem;">
-                    </div>
-                </div> --}}
+
+
 
                                 <div>
                                     <div class="container mt-5">
@@ -282,44 +308,55 @@
                                             Create User
                                         </button>
                                         <div class="d-flex justify-content-end mb-3">
-                                            <form action="/user/filter" method="GET" class="d-flex">
-                                                <select name="jurusan">
-
+                                            <form action="/user/filter" method="GET"
+                                                class="d-flex align-items-center gap-2 me-5"
+                                                style="max-width: 350px;">
+                                                <select name="jurusan" class="form-select">
                                                     <option value="" disabled selected>Pilih Jurusan</option>
                                                     <option value="Teknik Informatika">Teknik Informatika</option>
-                                                    <option value="Teknik sepeda motor">Teknik sepeda motor</option>
-                                                    <option value="Teknik kendaraan ringan ">Teknik kendaraan ringan
+                                                    <option value="Teknik Sepeda Motor">Teknik Sepeda Motor</option>
+                                                    <option value="Teknik Kendaraan Ringan">Teknik Kendaraan Ringan
                                                     </option>
-                                                    <option value="Teknik elektro">Teknik elektro</option>
-                                                    <option value="Rekaya perangkat lunak">Rekayasa perangkat lunak
+                                                    <option value="Teknik Elektro">Teknik Elektro</option>
+                                                    <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak
                                                     </option>
-                                                    <option value="Teknik komputer jaringan">Teknik komputer jaringan
+                                                    <option value="Teknik Komputer Jaringan">Teknik Komputer Jaringan
                                                     </option>
-                                                    <option value="Desain komunikasi visual">Desain komunikasi visual
-                                                    </option>
-                                                    <option value="Sistem Informasi">Sistem Informasi</option>
                                                     <option value="Desain Komunikasi Visual">Desain Komunikasi Visual
                                                     </option>
+                                                    <option value="Sistem Informasi">Sistem Informasi</option>
                                                     <option value="Manajemen">Manajemen</option>
                                                     <option value="Akuntansi">Akuntansi</option>
-                                                    </option>
                                                 </select>
-                                                <input type="submit" class="btn btn-secondary me-5" value="Filter">
+                                                <input type="submit" class="btn btn-secondary" value="Filter">
                                             </form>
-                                            <form action="/user/search" method="GET" class="d-flex" onsubmit="showLoading(this)">
-                                                <div class="input-group">
+
+
+                                            <form action="/user/search" method="GET" class="d-flex gap-2"
+                                                onsubmit="showLoading(this)" style="max-width: 400px; width: 100%;">
+                                                <div class="input-group flex-grow-1">
                                                     <span class="input-group-text">
                                                         <i class="fas fa-search"></i>
                                                     </span>
-                                                    <input type="text" name="search" class="form-control" placeholder="Search user..." required>
-                                                    <button type="submit" class="btn btn-primary search-btn" id="searchBtn">
-                                                        <span class="search-text">Search</span>
-                                                        <div class="spinner" role="status"></div>
-                                                    </button>
+                                                    <input type="text" name="search" class="form-control"
+                                                        placeholder="Search user..." required>
                                                 </div>
+                                                <button type="submit"
+                                                    class="btn btn-primary px-3 d-flex align-items-center justify-content-center position-relative"
+                                                    id="searchButton" style="width: 100px; height: 38px;">
+                                                    <span class="btn-text">Search</span>
+                                                    <span
+                                                        class="spinner-border spinner-border-sm position-absolute d-none"
+                                                        id="searchSpinner" role="status" aria-hidden="true"></span>
+                                                </button>
                                             </form>
+
+
+
+
+
                                         </div>
-                                        <table id="userTable" class="table table-striped table-bordered">
+    <table id="userTable" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -448,11 +485,11 @@
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="new_major"
-                                                                                class="form-label">Major</label>
+                                                                                class="form-label">Jurusan</label>
                                                                             <select class="form-control"
                                                                                 name="jurusan" id="new_major"
                                                                                 required>
-                                                                                <option value="">Select Major
+                                                                                <option value="">Select Jurusan
                                                                                 </option>
                                                                                 <option
                                                                                     value="Rekayasa Perangkat Lunak">
@@ -479,20 +516,30 @@
                                                                             <div class="text-danger" id="majorError">
                                                                             </div>
                                                                         </div>
+
+                                                                        <!-- Role Selection -->
                                                                         <div class="mb-3">
                                                                             <label for="new_role_name"
                                                                                 class="form-label">Role</label>
                                                                             <select class="form-control"
                                                                                 name="role_name" id="new_role_name"
                                                                                 required>
-                                                                                <option value="">Select Role
-                                                                                </option>
-                                                                                <option value="admin">Admin</option>
-                                                                                <option value="user">User</option>
+                                                                                @if (auth()->user()->role_name == 'admin')
+                                                                                    <option value="">Select Role
+                                                                                    </option>
+                                                                                    <option value="admin">Admin
+                                                                                    </option>
+                                                                                    <option value="user">User
+                                                                                    </option>
+                                                                                @else
+                                                                                    <option value="user" selected>
+                                                                                        User</option>
+                                                                                @endif
                                                                             </select>
                                                                             <div class="text-danger"
                                                                                 id="roleNameError"></div>
                                                                         </div>
+
                                                                         <div class="mb-3">
                                                                             <label for="new_password"
                                                                                 class="form-label">Password</label>
@@ -553,14 +600,26 @@
                                                                     @method('PUT')
                                                                     <div class="modal-body">
                                                                         <div class="mb-3">
-                                                                            <label for="username{{ $user->id }}" class="form-label">Name</label>
-                                                                            <input type="text" class="form-control" id="username{{ $user->id }}" name="username" value="{{ $user->username }}">
-                                                                            <div class="text-danger" id="username{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <label for="username{{ $user->id }}"
+                                                                                class="form-label">Name</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="username{{ $user->id }}"
+                                                                                name="username"
+                                                                                value="{{ $user->username }}">
+                                                                            <div class="text-danger"
+                                                                                id="username{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="email{{ $user->id }}" class="form-label">Email</label>
-                                                                            <input type="email" class="form-control" id="email{{ $user->id }}" name="email" value="{{ $user->email }}">
-                                                                            <div class="text-danger" id="email{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <label for="email{{ $user->id }}"
+                                                                                class="form-label">Email</label>
+                                                                            <input type="email" class="form-control"
+                                                                                id="email{{ $user->id }}"
+                                                                                name="email"
+                                                                                value="{{ $user->email }}">
+                                                                            <div class="text-danger"
+                                                                                id="email{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="nohp{{ $user->id }}"
@@ -570,12 +629,17 @@
                                                                                 name="nohp"
                                                                                 value="{{ $user->nohp }}"
                                                                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                                            <div class="text-danger" id="nohp{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <div class="text-danger"
+                                                                                id="nohp{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="address{{ $user->id }}" class="form-label">Address</label>
+                                                                            <label for="address{{ $user->id }}"
+                                                                                class="form-label">Address</label>
                                                                             <textarea class="form-control" id="address{{ $user->id }}" name="address" rows="3">{{ $user->address }}</textarea>
-                                                                            <div class="text-danger" id="address{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <div class="text-danger"
+                                                                                id="address{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="jurusan{{ $user->id }}"
@@ -616,7 +680,9 @@
                                                                                     Akuntansi</option>
                                                                                 <!-- Tambahkan opsi jurusan lainnya -->
                                                                             </select>
-                                                                            <div class="text-danger" id="jurusan{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <div class="text-danger"
+                                                                                id="jurusan{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="status{{ $user->id }}"
@@ -631,7 +697,9 @@
                                                                                     {{ $user->status == 0 ? 'selected' : '' }}>
                                                                                     Inactive</option>
                                                                             </select>
-                                                                            <div class="text-danger" id="status{{ $user->id }}Error"></div> <!-- Tempat error muncul -->
+                                                                            <div class="text-danger"
+                                                                                id="status{{ $user->id }}Error">
+                                                                            </div> <!-- Tempat error muncul -->
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -648,30 +716,32 @@
                                                     </div>
                                                 @endforeach
                                             </tbody>
-                                        </table>
+     </table>
                                     </div>
 
 
-                                    <footer class="footer pt-3  ">
+                                    <footer class="footer pt-3">
                                         <div class="container-fluid">
                                             <div class="row align-items-center justify-content-lg-between">
                                                 <div class="col-lg-6 mb-lg-0 mb-4">
                                                     <div
                                                         class="copyright text-center text-sm text-muted text-lg-start">
-                                                        ©
-                                                        <script>
-                                                            document.write(new Date().getFullYear())
-                                                        </script>,
-                                                        made with <i class="fa fa-heart"></i> by
-                                                        <a href="https://www.creative-tim.com"
-                                                            class="font-weight-bold" target="_blank">Geusan
-                                                            Raditya</a>
-                                                        for a better web.
+                                                        <marquee behavior="scroll" direction="left">
+                                                            ©
+                                                            <script>
+                                                                document.write(new Date().getFullYear())
+                                                            </script>, made with <i
+                                                                class="fa fa-heart"></i>
+                                                            by <a href="https://www.creative-tim.com"
+                                                                class="font-weight-bold" target="_blank">
+                                                                Geusan Raditya</a> for a better web.
+                                                        </marquee>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </footer>
+
                                 </div>
     </main>
     <div class="fixed-plugin">
@@ -828,55 +898,32 @@
             }
         });
     </script>
-    {{-- <script>
-    $(document).ready(function () {
-        $('#userTable').DataTable({
-          "pageLength": 10, // Jumlah baris per halaman
-            "lengthMenu": [5, 10, 25, 50, 100], // Opsi jumlah baris per halaman
-            "searching": true, // Aktifkan pencarian
-            "ordering": true, // Aktifkan pengurutan
-            "language": {
-                "search": "Cari:", // Ubah teks input pencarian
-                "lengthMenu": "Tampilkan _MENU_ entri per halaman",
-                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                "paginate": {
-                    "next": "Berikutnya",
-                    "previous": "Sebelumnya"
+    <script>
+        $(document).ready(function() {
+            $('#userTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                "searching": false, // Menonaktifkan pencarian bawaan DataTables
+                "ordering": true,
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ entri per halaman",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    "paginate": {
+                        "next": "Berikutnya",
+                        "previous": "Sebelumnya"
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
-<script>
-   $(document).ready(function() {
-    // Hancurkan DataTable jika sudah ada
-    if ($.fn.DataTable.isDataTable('#userTable')) {
-        $('#userTable').DataTable().destroy();
-    }
+    </script>
 
-    // Inisialisasi ulang DataTable
-    $('#userTable').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        lengthMenu: [5, 10, 25, 50],
-        language: {
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ data per halaman",
-            zeroRecords: "Tidak ada data ditemukan",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-            infoEmpty: "Tidak ada data yang tersedia",
-            paginate: {
-                first: "Awal",
-                last: "Akhir",
-                next: "Berikutnya",
-                previous: "Sebelumnya"
-            }
-        }
-    });
-});
-</script> --}}
+
+
+
+
+
+
+
     <script src="{asset('bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/js/bootstrap.min.js')}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -895,75 +942,7 @@
         });
 
 
-        // INI BENAR
 
-        //     $(document).ready(function() {
-        // $('#createUserForm').submit(function(e) {
-        //     e.preventDefault(); // Mencegah reload halaman
-
-        //     let formData = {
-        //         _token: $('meta[name="csrf-token"]').attr('content'),
-        //         username: $('#new_username').val(),
-        //         email: $('#new_email').val(),
-        //         nohp: $('#new_nohp').val(),
-        //         address: $('#new_address').val(),
-        //         jurusan: $('#new_major').val(), // Pastikan sesuai dengan ID input
-        //         status: $('#new_status').val(),
-        //         role_name: $('#new_role_name').val(), // Pastikan field ini ada di form
-        //         password: $('#new_password').val(),
-        //         password_confirmation: $('#confirm_password').val()
-        //     };
-
-        //     console.log("Form Data Sent:", formData); // Debugging
-
-        //     $.ajax({
-        //         url: "/user/store",
-        //         type: "POST",
-        //         data: formData,
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         success: function(response) {
-        //             console.log("Server Response:", response); // Debugging
-
-        //             Swal.fire({
-        //                 icon: 'success',
-        //                 title: 'Success',
-        //                 text: response.message,
-        //                 toast: true,
-        //                 position: 'top-end',
-        //                 showConfirmButton: false,
-        //                 timer: 3000
-        //             });
-
-        //             $('#createModal').modal('hide');
-        //             $('#createUserForm')[0].reset(); // Reset form setelah sukses
-        //             location.reload(); // Refresh halaman setelah sukses
-        //         },
-        //         error: function(xhr) {
-        //             console.log("Error Response:", xhr.responseJSON); // Debugging
-
-        //             $('.text-danger').text('');
-        //             if (xhr.status === 422 && xhr.responseJSON.errors) {
-        //                 let errors = xhr.responseJSON.errors;
-        //                 $.each(errors, function(key, value) {
-        //                     $('#' + key + 'Error').text(value[0]); // Menampilkan error di bawah input
-        //                 });
-        //             } else {
-        //                 Swal.fire({
-        //                     icon: 'error',
-        //                     title: 'Error',
-        //                     text: 'Something went wrong!',
-        //                     toast: true,
-        //                     position: 'top-end',
-        //                     showConfirmButton: false,
-        //                     timer: 3000
-        //                 });
-        //             }
-        //         }
-        //     });
-        // });
-        // });
 
 
         $(document).ready(function() {
@@ -1033,22 +1012,22 @@
 
         // Coba loading
 
-    function showLoading(form) {
-        let btn = form.querySelector("#searchBtn");
-        let spinner = form.querySelector("#loadingSpinner");
-        let btnText = form.querySelector("#btnText");
+        function showLoading(form) {
+            let btn = form.querySelector("#searchBtn");
+            let spinner = form.querySelector("#loadingSpinner");
+            let btnText = form.querySelector("#btnText");
 
-        // Tampilkan spinner dan ubah teks tombol
-        spinner.classList.remove("d-none");
-        btnText.textContent = "Searching...";
-        btn.disabled = true;
-    }
+            // Tampilkan spinner dan ubah teks tombol
+            spinner.classList.remove("d-none");
+            btnText.textContent = "Searching...";
+            btn.disabled = true;
+        }
 
-    function showLoading(form) {
-        let btn = form.querySelector("#searchBtn");
-        btn.classList.add("loading");
-        btn.disabled = true;
-    }
+        function showLoading(form) {
+            let btn = form.querySelector("#searchBtn");
+            btn.classList.add("loading");
+            btn.disabled = true;
+        }
 
 
 
@@ -1102,7 +1081,7 @@
                             // Looping setiap error dan menampilkan di bawah input yang sesuai
                             $.each(errors, function(key, value) {
                                 $('#' + key + userId + 'Error').text(value[
-                                0]); // Menampilkan error
+                                    0]); // Menampilkan error
                             });
                         } else {
                             Swal.fire({
@@ -1117,51 +1096,37 @@
                 });
             });
         });
+
+        function showLoading(form) {
+            const searchButton = form.querySelector("#searchButton");
+            const searchText = searchButton.querySelector(".btn-text");
+            const searchSpinner = searchButton.querySelector("#searchSpinner");
+
+            // Pastikan tombol tetap dengan ukuran yang sama
+            searchButton.style.width = `${searchButton.offsetWidth}px`;
+            searchButton.style.height = `${searchButton.offsetHeight}px`;
+
+            // Sembunyikan teks, tampilkan spinner
+            searchText.classList.add("d-none");
+            searchSpinner.classList.remove("d-none");
+
+            // Disable tombol agar tidak bisa diklik berulang kali
+            searchButton.disabled = true;
+        }
+
+
+
+
+
+
+
+
+
     </script>
+
 
 
 
 </body>
 
 </html>
-{{-- <li class="nav-item">
-          <a class="nav-link " href="../pages/billing.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Billing</span>
-          </a>
-        </li> --}}
-{{-- <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
-          </a>
-        </li> --}}
-{{-- <li class="nav-item">
-          <a class="nav-link " href="../pages/rtl.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">RTL</span>
-          </a>
-        </li> --}}
-
-{{-- <div class="col-lg-6">
-          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-            </li>
-          </ul>
-        </div> --}}
